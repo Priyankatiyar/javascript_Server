@@ -1,4 +1,4 @@
-var arguments = process.argv
+//var arguments = process.argv
 function Diamond(n) {
     pattern = "";
     let space = n - 1;
@@ -37,3 +37,4 @@ function Diamond(n) {
     console.log(pattern);
 }
 Diamond(5);
+
