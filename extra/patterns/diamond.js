@@ -1,4 +1,5 @@
-function Diamond(n) {
+function Diamond(n)
+{
     pattern = "";
     let space = n - 1;
     for (let i = 0; i < n; i++)
