@@ -5,20 +5,17 @@ let users = [
     },
     {
         traineeEmail: 'trainee01@successive.tech',
-        reviewerEmail: 'reviewer2@successive.tech',
+        reviewerEmail: 'reviewer01@successive.tech',
     },
     {
         traineeEmail: 'trainee001@@successive.tech',
-        reviewerEmail: 'reviewer3@successive.tech',
+        reviewerEmail: 'reviewer001@successive.tech',
     }
 ];
-
 let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-
 function ValidateEmail(email) {
     return reg.test(email);
 }
-
 let valid = [];
 let invalid = [];
 function ValidateUser(users)
@@ -34,12 +31,9 @@ function ValidateUser(users)
             invalid.push(users[i]);
         }
     }
-    console.log("valid count is : ",valid.length);
+    console.log("valid emailId count  : ",valid.length);
     console.log(valid);
-    console.log("Invalid count is : ",invalid.length);
+    console.log("Invalid emailId count : ",invalid.length);
     console.log(invalid);
-
 }
-
 ValidateUser(users)
-
