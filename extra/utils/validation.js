@@ -18,7 +18,6 @@ import { ValidateEmail } from './helpers';
 //     let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 //     return reg.test(email);
 // }
-
 export function ValidateUser(users)
 {
     let valid = [];
@@ -40,7 +39,4 @@ export function ValidateUser(users)
     console.log(invalid);
 
 }
-
-
 //ValidateUser(users);
-
