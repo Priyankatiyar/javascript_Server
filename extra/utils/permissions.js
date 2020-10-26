@@ -1,4 +1,4 @@
-const permissions=
+ const permissions=
 {
 'getUsers': {
 all: ['head-trainer'],
@@ -7,7 +7,7 @@ write : ['trainer'],
 delete: [],
 }
 };
-function hasPermission(moduleName,role,permissionType){
+export  function hasPermission(moduleName,role,permissionType){
     if(!moduleName.hasOwnProperty(permissionType)){
         console.log("false");
     }
@@ -18,5 +18,5 @@ function hasPermission(moduleName,role,permissionType){
             console.log("false");
         }
 }
-hasPermission(permissions.getUsers,"trainee","read");
-hasPermission(permissions.getUsers,"trainee","delete");
+//hasPermission(permissions.getUsers,"trainee","read");
+//hasPermission(permissions.getUsers,"head trainer","delete");

@@ -1,20 +1,20 @@
-function formequilateral(n) 
+export function formequilateral(n) 
 {
-    pattern = "";
+    let pat = "";
     let space = n - 1;
     for (let i = 0; i < n; i++) 
     {
         for (let j = 0; j <space; j++) 
         {
-            pattern += ' ';
+            pat += ' ';
         }
         for (let j = 0; j <= i; j++) 
         {
-            pattern += '* ';   
+            pat += '* ';   
         }
-        pattern += '\n';
+        pat += '\n';
         space--;
     }
-        console.log(pattern);
+        console.log(pat);
 }
-formequilateral(3);
+//formequilateral(3);

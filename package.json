@@ -1,0 +1,25 @@
+{
+  "name": "javascript_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "extra": "babel-node extra"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Priyankatiyar/javascript_Server.git"
+  },
+  "author": "priyanka katiyar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Priyankatiyar/javascript_Server/issues"
+  },
+  "homepage": "https://github.com/Priyankatiyar/javascript_Server#readme",
+  "dependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.1",
+    "@babel/preset-env": "^7.12.1"
+  }
+}
