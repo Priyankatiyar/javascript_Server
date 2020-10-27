@@ -8,7 +8,6 @@ write : ['trainer'],
 delete: [],
 }
 };
-
 export const users:Iusers[] = [
     {
         traineeEmail: 'trainee1@@successive.tech',
