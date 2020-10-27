@@ -17,4 +17,3 @@ export function formequilateral(n)
     }
         console.log(pat);
 }
-//formequilateral(3);
