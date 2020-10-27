@@ -1,18 +1,18 @@
-function Diamond(n)
+export function diamond(n)
 {
-    pattern = "";
+    let patt = "";
     let space = n - 1;
     for (let i = 0; i < n; i++)
     {
         for (let j = 0; j < space; j++)
         {
-            pattern +=' ';
+            patt +=' ';
         }
         for (let j = 0; j <= i; j++)
         {
-            pattern += '* ';
+            patt+= '* ';
         }
-        pattern += '\n';
+        patt += '\n';
         space--;
     } 
     space = 0;
@@ -20,15 +20,14 @@ function Diamond(n)
     {
         for(let j=0; j<space; j++)
         {
-            pattern +=' ';
+            patt +=' ';
         }
         for(let j=0; j<i; j++)
         {
-            pattern +='* ';
+            patt +='* ';
         }
-        pattern += '\n';
+        patt += '\n';
         space++;
     }
-    console.log(pattern);
+    console.log(patt);
 }
-Diamond(5);
