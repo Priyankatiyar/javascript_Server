@@ -6,7 +6,6 @@ class Server {
     }
     bootstrap() {
         this.setupRoutes();
-        console.log('bootstrap');
         return this;
     }
     setupRoutes() {
