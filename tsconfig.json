@@ -21,7 +21,7 @@
     },
     "exclude": ["dist"],
     "include": [
-    "extraTs"
+    "src"
     ],
     "types": ["src/types"]
 }    
