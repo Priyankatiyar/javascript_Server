@@ -1,23 +1,4 @@
 import { ValidateEmail } from './helpers';
-// export const users = [
-//     {
-//         traineeEmail: 'trainee1@@successive.tech',
-//         reviewerEmail: 'reviewer1@successive.tech',
-//     },
-//     {
-//         traineeEmail: 'trainee01@successive.tech',
-//         reviewerEmail: 'reviewer2@successive.tech',
-//     },
-//     {
-//         traineeEmail: 'trainee001@@successive.tech',
-//         reviewerEmail: 'reviewer3@successive.tech',
-//     }
-// ];
-// function ValidateEmail(email)
-// {
-//     let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-//     return reg.test(email);
-// }
 export function ValidateUser(users)
 {
     let valid = [];
@@ -37,6 +18,4 @@ export function ValidateUser(users)
     console.log(valid);
     console.log("Invalid count is : ",invalid.length);
     console.log(invalid);
-
 }
-//ValidateUser(users);

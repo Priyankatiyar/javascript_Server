@@ -10,12 +10,10 @@ export  function hasPermission(moduleName, role: string, permissionType: string)
     if (!moduleName.hasOwnProperty(permissionType)) {
         console.log('false');
     }
-    else if (moduleName[permissionType].includes(role) || (role == 'head-trainer')) {
+    else if (moduleName[permissionType].includes(role) || (role === 'head-trainer')) {
         console.log('true');
     }
     else {
             console.log('false');
         }
 }
-// hasPermission(permissions.getUsers,"trainee","read");
-// hasPermission(permissions.getUsers,"head trainer","delete");

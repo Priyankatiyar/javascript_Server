@@ -1,26 +1,9 @@
+import { of } from 'core-js/fn/array';
 import { ValidateEmail } from './helpers';
-// export const users = [
-//     {
-//         traineeEmail: 'trainee1@@successive.tech',
-//         reviewerEmail: 'reviewer1@successive.tech',
-//     },
-//     {
-//         traineeEmail: 'trainee01@successive.tech',
-//         reviewerEmail: 'reviewer2@successive.tech',
-//     },
-//     {
-//         traineeEmail: 'trainee001@@successive.tech',
-//         reviewerEmail: 'reviewer3@successive.tech',
-//     }
-// ];
-// function ValidateEmail(email)
-// {
-//     let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-//     return reg.test(email);
-// }
 export function ValidateUser(users) {
-    const valid: String[] = [];
-    const invalid: String[] = [];
+    const valid: string[] = [];
+    const invalid: string[] = [];
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < users.length; i++) {
         if (ValidateEmail(users[i].traineeEmail) && ValidateEmail(users[i].reviewerEmail)) {
             valid.push(users[i]);
@@ -34,4 +17,3 @@ export function ValidateUser(users) {
     console.log('Invalid users count is : ', invalid.length);
     console.log(invalid);
 }
-// ValidateUser(users);
