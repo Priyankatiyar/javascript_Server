@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as bodyparser from 'body-parser';
 import notFoundRoute from './libs/routes/notFoundRoute';
 import errorHandler from './libs/routes/errorHandler';
+import routes from './router';
 class Server {
     private app;
     constructor(private config) {
@@ -14,11 +15,11 @@ class Server {
         return this;
     }
     setupRoutes() {
-
         this.app.use('/health-check', (req, res) => {
             console.log('Inside Second middleware');
             res.send('I am OK');
         });
+        this.app.use('/api', routes);
         this.app.use(notFoundRoute);
         this.app.use(errorHandler);
     }
