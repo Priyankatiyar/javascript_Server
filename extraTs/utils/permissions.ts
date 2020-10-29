@@ -17,5 +17,3 @@ export  function hasPermission(moduleName, role: string, permissionType: string)
             console.log('false');
         }
 }
-// hasPermission(permissions.getUsers,"trainee","read");
-// hasPermission(permissions.getUsers,"head trainer","delete");
