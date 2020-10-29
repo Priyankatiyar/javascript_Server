@@ -51,7 +51,7 @@ class TraineeController {
             console.log('Inside error', err);
         }
     }
-    Delete(req, res, next) {
+    delete(req, res, next) {
         try {
             console.log('Inside delete() method of Trainee Controller');
             res.send({
