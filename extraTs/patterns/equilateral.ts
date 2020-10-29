@@ -13,4 +13,3 @@ export function formequilateral(n: number): void {
     }
         console.log(pat);
 }
-// formequilateral(3);
