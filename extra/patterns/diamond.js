@@ -31,4 +31,3 @@ export function diamond(n)
     }
     console.log(patt);
 }
-//Diamond(5);
