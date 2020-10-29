@@ -6,4 +6,3 @@ export{
     diamond,
     formequilateral
 }
-//hasPermission(permissions.getUsers,"trainee","read");
