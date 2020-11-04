@@ -19,6 +19,7 @@ class Server {
             console.log('Inside Second middleware');
             res.send('I am OK');
         });
+        this.initBodyParser();
         this.app.use('/api', routes);
         this.app.use(notFoundRoute);
         this.app.use(errorHandler);

@@ -51,8 +51,9 @@ delete: {
                 in: ['body'],
                 required: true,
                 isObject: true,
-                // tslint:disable-next-line: no-empty
-                custom(dataToUpdate) {},
+                custom(dataToUpdate) {
+                    console.log('dataToUpdate');
+                },
             }
         }
     };

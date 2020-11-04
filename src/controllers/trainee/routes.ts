@@ -3,7 +3,6 @@ import traineeController from './Controller';
 import validationHandler from '../../libs/validationHandler';
 import validation from './validation';
 const traineeRouter = Router();
-// tslint:disable-next-line: semicolon
 traineeRouter.route('/')
     .get(validationHandler(validation.get), traineeController.get)
     .post(validationHandler(validation.create), traineeController.create)
