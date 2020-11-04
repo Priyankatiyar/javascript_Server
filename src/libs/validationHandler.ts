@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-
 export default ( config ) => ( req: Request, res: Response, next: NextFunction  ) => {
     const errors = [];
      console.log( req.body );
@@ -49,7 +48,6 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
                 });
             }
         }
-
         if (obj.number) {
             if (isNaN(values[0]) || values[0] === undefined) {
                 errors.push({
@@ -58,7 +56,6 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
                 });
             }
         }
-
     });
     if (errors.length > 0) {
         res.status(400).send({ errors});
@@ -67,7 +64,6 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
         next();
     }
 };
-
 function isNull( obj ) {
     const a = ( obj === undefined || obj === null );
     return a;
