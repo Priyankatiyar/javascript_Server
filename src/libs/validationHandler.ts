@@ -11,14 +11,16 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
         });
         if (Object.keys( req[obj.in] ).length === 0) {
             errors.push({
-                message: `Values should be passed through ${obj.in}`,
+                message: obj.errorMessage,
+                location: obj.in,
                 status: 400
             });
         }
         if (obj.required) {
             if (isNull(values[0])) {
                 errors.push({
-                    message: `${key} is required`,
+                    message: obj.errorMessage,
+                    location: obj.in,
                     status: 404
                 });
             }
@@ -26,7 +28,8 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
         if (obj.string) {
             if ( !( typeof ( values[0] ) === 'string' ) ) {
                 errors.push({
-                    message: `${key} Should be a String`,
+                    message: obj.errorMessage,
+                    location: obj.in,
                     status: 404
                 });
             }
@@ -34,7 +37,8 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
         if (obj.isObject) {
             if ( ! ( typeof ( values ) === 'object' ) ) {
                 errors.push({
-                    message: `${key} Should be an object`,
+                    message: obj.errorMessage,
+                    location: obj.in,
                     status: 404
                 });
             }
@@ -43,7 +47,8 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
             const regex = obj.regex;
             if (!regex.test(values[0])) {
                 errors.push({
-                    message: `${key} is not valid expression` ,
+                    message: obj.errorMessage ,
+                    location: obj.in,
                     status: 400,
                 });
             }
@@ -51,7 +56,8 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
         if (obj.number) {
             if (isNaN(values[0]) || values[0] === undefined) {
                 errors.push({
-                    message: `${key}  must be an number` ,
+                    message: obj.errorMessage ,
+                    location: obj.in,
                     status: 400,
                 });
             }
@@ -67,4 +73,4 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
 function isNull( obj ) {
     const a = ( obj === undefined || obj === null );
     return a;
-  }
+}
