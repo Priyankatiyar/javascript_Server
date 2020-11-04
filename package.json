@@ -4,10 +4,12 @@
   "description": "Project: JavaScript Training",
   "main": "index.js",
   "dependencies": {
+    "@types/jsonwebtoken": "^8.5.0",
     "ajv": "^6.12.6",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
+    "jsonwebtoken": "^8.5.1",
     "tsc": "^1.20150623.0"
   },
   "devDependencies": {
