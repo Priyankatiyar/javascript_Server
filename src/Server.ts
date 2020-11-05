@@ -19,12 +19,14 @@ class Server {
             console.log('Inside Second middleware');
             res.send('I am OK');
         });
+        this.initBodyParser();
         this.app.use('/api', routes);
         this.app.use(notFoundRoute);
         this.app.use(errorHandler);
     }
     initBodyParser() {
-        this.app.use(bodyparser.json({ type: 'application/*+json' }));
+        // this.app.use(bodyparser.json({ type: 'application/*+json' }));
+        this.app.use(bodyparser.json());
     }
     run() {
         const{ app, config: { PORT } } = this;
