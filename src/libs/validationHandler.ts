@@ -47,7 +47,7 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
             const regex = obj.regex;
             if (!regex.test(values[0])) {
                 errors.push({
-                    message: obj.errorMessage,
+                    message: obj.errorMessage ,
                     location: obj.in,
                     status: 400,
                 });
