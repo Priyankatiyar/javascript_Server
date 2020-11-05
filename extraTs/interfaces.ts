@@ -1,13 +1,13 @@
 interface Ipermission {
     'getUsers': {
-        all: String[],
-        read: String[],
-        write: String[],
-        delete: String[]
+        all: string[],
+        read: string[],
+        write: string[],
+        delete: string[]
     };
 }
 interface Iusers {
-    traineeEmail: String;
-    reviewerEmail: String;
+    traineeEmail: string;
+    reviewerEmail: string;
 }
 export{ Ipermission, Iusers };
