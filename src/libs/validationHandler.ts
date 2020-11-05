@@ -21,7 +21,7 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
                 errors.push({
                     message: obj.errorMessage,
                     location: obj.in,
-                    status: 404
+                    status: 400
                 });
             }
         }
@@ -30,7 +30,7 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
                 errors.push({
                     message: obj.errorMessage,
                     location: obj.in,
-                    status: 404
+                    status: 400
                 });
             }
         }
@@ -39,7 +39,7 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
                 errors.push({
                     message: obj.errorMessage,
                     location: obj.in,
-                    status: 404
+                    status: 400
                 });
             }
         }
