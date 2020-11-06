@@ -1,14 +1,17 @@
 import { NextFunction, Request, Response } from 'express';
+
 export default ( config ) => ( req: Request, res: Response, next: NextFunction  ) => {
     const errors = [];
     console.log( req.body );
     console.log( req.query );
     const keys = Object.keys( config );
+
     keys.forEach((key) => {
         const obj = config[key];
         const values = obj.in.map( ( val ) => {
             return req[ val ][ key ];
         });
+
         if (Object.keys( req[obj.in] ).length === 0) {
             errors.push({
                 message: obj.errorMessage,
@@ -16,6 +19,7 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
                 status: 400
             });
         }
+
         if (obj.required) {
             if (isNull(values[0])) {
                 errors.push({
@@ -25,6 +29,7 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
                 });
             }
         }
+
         if (obj.string) {
             if ( !( typeof ( values[0] ) === 'string' ) ) {
                 errors.push({
@@ -34,6 +39,7 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
                 });
             }
         }
+
         if (obj.isObject) {
             if ( ! ( typeof ( values ) === 'object' ) ) {
                 errors.push({
@@ -43,6 +49,7 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
                 });
             }
         }
+
         if (obj.regex) {
             const regex = obj.regex;
             if (!regex.test(values[0])) {
@@ -53,6 +60,7 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
                 });
             }
         }
+
         if (obj.number) {
             if (isNaN(values[0]) || values[0] === undefined) {
                 errors.push({
@@ -63,6 +71,7 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
             }
         }
     });
+
     if (errors.length > 0) {
         res.status(400).send({ errors});
     }
@@ -70,6 +79,7 @@ export default ( config ) => ( req: Request, res: Response, next: NextFunction  
         next();
     }
 };
+
 function isNull( obj ) {
     const a = ( obj === undefined || obj === null );
     return a;

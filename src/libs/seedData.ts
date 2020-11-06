@@ -1,5 +1,7 @@
 import UserRepository from '../repositories/user/UserRepository';
+
 const userRepository: UserRepository = new UserRepository();
+
 export default () => {
     userRepository.count()
         .then(res => {
@@ -11,6 +13,7 @@ export default () => {
             }
         });
     console.log('Seeding Data in progress!');
+
     userRepository.create({ name: 'Head Trainer', role: 'head-trainer'});
     userRepository.create({ name: 'Trainee', role: 'trainee'});
 };

@@ -12,6 +12,7 @@ const config = {
                 };
             }
         },
+
         name: {
             required: true,
             regex: '',
@@ -19,13 +20,15 @@ const config = {
             errorMessage: 'Name is required'
         }
     },
+
     delete: {
         id: {
             required: true,
             errorMessage: 'Id is required',
             in: ['params']
         }
-    }  ,
+    } ,
+
     get: {
         skip: {
             required: false,
@@ -34,6 +37,7 @@ const config = {
             in: ['query'],
             errorMessage: 'Skip is invalid',
         },
+
         limit: {
             required: false,
             default: 10,
@@ -42,12 +46,14 @@ const config = {
             errorMessage: 'Limit is invalid',
         }
     },
+
     update: {
         id: {
             required: true,
             string: true,
             in: ['body']
         },
+
         dataToUpdate: {
             in: ['body'],
             required: true,
@@ -57,5 +63,7 @@ const config = {
             },
         }
     }
+
 };
+
 export default config;
