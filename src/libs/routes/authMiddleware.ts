@@ -1,12 +1,19 @@
 import hasPermissions from '../permissions';
+
 const jwt = require('jsonwebtoken');
+
 export default (moduleName:string, permissionType:string) => (req, res, next) => {
+    
     const { headers : { authorization: token }} = req;
     console.log('Header is:', token);
-    let decoder;
+    let user;
+
     try{
-        decoder = jwt.verify( token, 'qwertyuiopasdfghjklzxcvbnm123456');
-        console.log('User', decoder);
+        user = jwt.verify( token, 'qwertyuiopasdfghjklzxcvbnm123456');
+        console.log('User', user);
+
+        req.user = user;
+
         if (!token) {
             next({
                 message: 'Token not found',
@@ -23,7 +30,8 @@ export default (moduleName:string, permissionType:string) => (req, res, next) =>
         });
     }
     console.log(moduleName);
-    if (!hasPermissions(moduleName, decoder.role, permissionType)) {
+    
+    if (!hasPermissions(moduleName, user.role, permissionType)) {
         next({
             message: 'permission denied',
             error: 'Unauthorized Access',
