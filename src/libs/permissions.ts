@@ -1,4 +1,4 @@
-const permissions = {
+export const permissions = {
     'getUsers': {
         all: ['head-trainer'],
         read : ['trainee', 'trainer'],

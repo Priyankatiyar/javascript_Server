@@ -7,6 +7,9 @@ export default class UserRepository {
     public static generateObjectId() {
         return String (mongoose.Types.ObjectId());
     }
+    public static findOne(query): mongoose.DocumentQuery<IUserModel, IUserModel, {}> {
+        return userMODEL.findOne(query).lean();
+    }
 
     public create(data: any): Promise<IUserModel> {
         console.log('UserReository Created Successfully!!', data);

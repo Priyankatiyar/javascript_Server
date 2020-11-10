@@ -1,42 +1,46 @@
 import hasPermissions from '../permissions';
+import UserRepository from '../../repositories/user/UserRepository';
+import { Request } from 'express';
+
 
 const jwt = require('jsonwebtoken');
 
-export default (moduleName:string, permissionType:string) => (req, res, next) => {
+export default (moduleName:string, permissionType:string) =>async (req , res, next) => {
     
     const { headers : { authorization: token }} = req;
-    console.log('Header is:', token);
-    let user;
+    let dbUser;
 
+    if (!token) {
+        next({
+            message: 'Token not found',
+            error: 'Authentication failed',
+            status: 403
+        });
+    }   
+    
     try{
-        user = jwt.verify( token, 'qwertyuiopasdfghjklzxcvbnm123456');
-        console.log('User', user);
+        const user = jwt.verify( token, 'qwertyuiopasdfghjklzxcvbnm123456');
+        dbUser =await  UserRepository.findOne({email: user.result.email, passsword: user.result.passsword});
 
-        req.user = user;
+        req.user = dbUser;
 
-        if (!token) {
+        if (!hasPermissions(moduleName, user.result.role, permissionType)) {
             next({
-                message: 'Token not found',
-                error: 'Authentication failed',
+                message: 'permission denied',
+                error: 'Unauthorized Access',
                 status: 403
             });
-        }        
+        }
+        next();     
     } 
     catch (err) {
+        console.log(err);
         next({
             message: 'User is unauthorized',
             error: 'Unauthorized Access',
             status: 403
         });
     }
-    console.log(moduleName);
     
-    if (!hasPermissions(moduleName, user.role, permissionType)) {
-        next({
-            message: 'permission denied',
-            error: 'Unauthorized Access',
-            status: 403
-        });
-    }
-    next();
+
 };

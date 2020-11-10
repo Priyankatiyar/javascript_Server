@@ -14,6 +14,6 @@ export default () => {
         });
     console.log('Seeding Data in progress!');
 
-    userRepository.create({ name: 'Head Trainer', role: 'head-trainer'});
-    userRepository.create({ name: 'Trainee', role: 'trainee'});
+    userRepository.create({ name: 'Head Trainer', role: 'head-trainer', email: 'head.trainer@successive.tech', password: 'head@123'});
+    userRepository.create({ name: 'Trainee', role: 'trainee' , email: 'trainee@successive.tech', password: 'trainee@123'});
 };
