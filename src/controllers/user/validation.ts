@@ -62,6 +62,18 @@ const config = {
                 console.log('dataToUpdate');
             },
         }
+    },
+    login: {
+        email: {
+            required: true,
+            string: true,
+            in : ['body']
+        },
+        password: {
+            required: true,
+            string: true,
+            in : ['body']
+        }
     }
 
 };

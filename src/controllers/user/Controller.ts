@@ -1,3 +1,8 @@
+import  { userModel } from '../../repositories/user/UserModel';
+import  UserRepository  from '../../repositories/user/UserRepository';
+
+import * as jwt from 'jsonwebtoken';
+
 class UserController {
     static instance: UserController;
 
@@ -16,8 +21,7 @@ class UserController {
                 message: 'Users Data fetched sucsesfully!',
                 data: [
                     {
-                        name: 'Priyanka',
-                        address: 'Noida'
+                        data: req.user,
                     }
                 ]
             });
@@ -72,6 +76,41 @@ class UserController {
             console.log('Inside error', err);
         }
     }
+
+    login( req, res, next ) {
+        try {
+            const { email, password } = req.body;
+            userModel.findOne ( { email: req.body.email }, (err, result ) => {
+                if ( result ) {
+                    if ( password === result.password) {
+                        const token = jwt.sign( result, 'qwertyuiopasdfghjklzxcvbnm123456');
+                        res.send({
+                            data: token,
+                            message: 'Login Successful!',
+                            code: 200
+                        });
+                    }
+                    else {
+                            res.send({
+                            message: 'Incorrect Password',
+                            code: 400
+                        });
+                    }
+                }
+                else {
+                    res.send({
+                        message: 'Email is not Registered',
+                        code: 404
+                    });
+                }
+
+            });
+        }
+        catch ( err ) {
+            res.send(err);
+        }
+    }
+
 }
 
 export default UserController.getInstance();
