@@ -6,8 +6,10 @@ interface Ipermission {
         delete: string[]
     };
 }
+
 interface Iusers {
     traineeEmail: string;
     reviewerEmail: string;
 }
+
 export{ Ipermission, Iusers };

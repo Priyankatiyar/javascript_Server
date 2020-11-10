@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { userMODEL } from './UserModel';
+import { userModel } from './UserModel';
 import IUserModel from './IUserModel';
 
 export default class UserRepository {
@@ -8,13 +8,13 @@ export default class UserRepository {
         return String (mongoose.Types.ObjectId());
     }
     public static findOne(query): mongoose.DocumentQuery<IUserModel, IUserModel, {}> {
-        return userMODEL.findOne(query).lean();
+        return userModel.findOne(query).lean();
     }
 
     public create(data: any): Promise<IUserModel> {
         console.log('UserReository Created Successfully!!', data);
         const id = UserRepository.generateObjectId();
-        const model = new userMODEL({
+        const model = new userModel({
             _id: id,
             ...data,
         });
@@ -22,7 +22,7 @@ export default class UserRepository {
     }
 
     public count() {
-        return userMODEL.countDocuments();
+        return userModel.countDocuments();
     }
 
 }

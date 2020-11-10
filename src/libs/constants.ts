@@ -1,12 +1,14 @@
 import { Ipermission, Iusers } from './interfaces';
+
 export const permissions: Ipermission = {
-'getUsers': {
-    all: ['head-trainer'],
-    read : ['trainee', 'trainer'],
-    write : ['trainer'],
-    delete: [],
+    'getUsers': {
+        all: ['head-trainer'],
+        read : ['trainee', 'trainer'],
+        write : ['trainer'],
+        delete: [],
     }
 };
+
 export const users: Iusers[] = [
     {
         traineeEmail: 'trainee1@@successive.tech',
@@ -21,5 +23,3 @@ export const users: Iusers[] = [
         reviewerEmail: 'reviewer3@successive.tech',
     }
 ];
-
-

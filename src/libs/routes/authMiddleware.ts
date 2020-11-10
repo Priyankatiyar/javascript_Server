@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 export default (moduleName:string, permissionType:string) =>async (req , res, next) => {
     
     const { headers : { authorization: token }} = req;
-    let dbUser;
+    let userDetail;
 
     if (!token) {
         next({
@@ -20,9 +20,9 @@ export default (moduleName:string, permissionType:string) =>async (req , res, ne
     
     try{
         const user = jwt.verify( token, 'qwertyuiopasdfghjklzxcvbnm123456');
-        dbUser =await  UserRepository.findOne({email: user.result.email, passsword: user.result.passsword});
+        userDetail = await  UserRepository.findOne({email: user.result.email, passsword: user.result.passsword});
 
-        req.user = dbUser;
+        req.user = userDetail;
 
         if (!hasPermissions(moduleName, user.result.role, permissionType)) {
             next({

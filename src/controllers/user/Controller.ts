@@ -1,4 +1,4 @@
-import  { userMODEL } from '../../repositories/user/UserModel';
+import  { userModel } from '../../repositories/user/UserModel';
 import  UserRepository  from '../../repositories/user/UserRepository';
 
 import * as jwt from 'jsonwebtoken';
@@ -80,7 +80,7 @@ class UserController {
     login( req, res, next ) {
         try {
             const { email, password } = req.body;
-            userMODEL.findOne ( { email: req.body.email }, (err, result ) => {
+            userModel.findOne ( { email: req.body.email }, (err, result ) => {
                 if ( result ) {
                     if ( password === result.password) {
                         const token = jwt.sign( result, 'qwertyuiopasdfghjklzxcvbnm123456');
@@ -111,7 +111,6 @@ class UserController {
         }
     }
 
-    }
-
+}
 
 export default UserController.getInstance();

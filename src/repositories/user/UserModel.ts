@@ -6,7 +6,7 @@ export const userSchema = new UserSchema({
     collections: 'user',
 });
 
-export const userMODEL: mongoose.Model<IUserModel> = mongoose.model <IUserModel>
+export const userModel: mongoose.Model<IUserModel> = mongoose.model <IUserModel>
     (
         'User',
         userSchema,
