@@ -1,10 +1,12 @@
 import * as mongoose from 'mongoose';
+import VersionableSchema from '../versionable/VersionableSchema';
 
-class UserSchema extends mongoose.Schema {
+class UserSchema extends VersionableSchema {
 
     constructor (collections: any) {
         const baseSchema = Object.assign({
             _id: String,
+            id: String,
             name: String,
             email: String,
             role: String,

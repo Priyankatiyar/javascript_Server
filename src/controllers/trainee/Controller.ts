@@ -1,4 +1,12 @@
+import { Request, Response, NextFunction } from 'express';
+import UserRepository from '../../repositories/user/UserRepository';
+
 class TraineeController {
+    constructor() {
+        this.get = this.get.bind(this);
+    }
+
+    userRepository: UserRepository = new UserRepository();
     static instance: TraineeController;
     static getInstance() {
         if (TraineeController.instance) {
@@ -7,15 +15,21 @@ class TraineeController {
         TraineeController.instance = new TraineeController();
         return TraineeController.instance;
     }
-    get(req, res, next) {
+    get(req: Request, res: Response, next: NextFunction) {
         try {
             console.log('Inside get() method of Trainee Controller');
-            res.send({
+            const data = [
+                {
+                    name: 'trainee1',
+                }, {
+                    name: 'trainee2',
+                }
+            ];
+            res.status(200).send({
                 message: 'Trainees fetched sucsesfully!',
                 data: [
                     {
-                        name: 'Priyanka',
-                        address: 'Noida'
+                       data,
                     }
                 ]
             });

@@ -8,20 +8,33 @@ import  config  from './validation';
 
 const userRouter = Router();
 
-userRouter.route('/')
-    .get(authMiddleware('getUsers', 'read' ), validationHandler(validation.get), userController.get)
-    .post(authMiddleware('getUsers', 'read' ), validationHandler(validation.create), userController.create)
-    .put(authMiddleware('getUsers', 'read' ), validationHandler(validation.update), userController.update)
-    .delete(authMiddleware('getUsers', 'read' ), validationHandler(validation.delete), userController.delete);
+userRouter.get('/get',
+authMiddleware('getUsers', 'all' ),
+validationHandler(validation.get),
+userController.get);
 
-    userRouter.route('/:id')
-    .delete(authMiddleware('getUsers', 'read' ), validationHandler(validation.delete), userController.delete);
+userRouter.post('/create',
+authMiddleware('getUsers', 'all' ),
+validationHandler(validation.create),
+userController.create);
 
-userRouter.route('/me')
-    .get(authMiddleware( 'getUsers', 'all'), userController.get );
+userRouter.put('/update',
+authMiddleware('getUsers', 'all' ),
+validationHandler(validation.update),
+userController.update);
 
-userRouter.route('/login')
-    .post(validationHandler(config.login), userController.login);
+userRouter.delete('/:id',
+authMiddleware('getUsers', 'all' ),
+validationHandler(validation.delete),
+userController.delete);
+
+userRouter.get('/me',
+authMiddleware( 'getUsers', 'read'),
+userController.get );
+
+userRouter.post('/login',
+validationHandler(config.login),
+userController.login);
 
 
 export default userRouter;
