@@ -8,17 +8,33 @@ import  config  from './validation';
 
 const userRouter = Router();
 
-userRouter.get('/get', authMiddleware('getUsers', 'all' ), validationHandler(validation.get), userController.get);
+userRouter.get('/get',
+authMiddleware('getUsers', 'all' ),
+validationHandler(validation.get),
+userController.get);
 
-userRouter.post('/create', authMiddleware('getUsers', 'all' ), validationHandler(validation.create), userController.create);
+userRouter.post('/create',
+authMiddleware('getUsers', 'all' ),
+validationHandler(validation.create),
+userController.create);
 
-userRouter.put('/update', authMiddleware('getUsers', 'all' ), validationHandler(validation.update), userController.update);
+userRouter.put('/update',
+authMiddleware('getUsers', 'all' ),
+validationHandler(validation.update),
+userController.update);
 
-userRouter.delete('/:id', authMiddleware('getUsers', 'all' ), validationHandler(validation.delete), userController.delete);
+userRouter.delete('/:id',
+authMiddleware('getUsers', 'all' ),
+validationHandler(validation.delete),
+userController.delete);
 
-userRouter.get('/me', authMiddleware( 'getUsers', 'read'), userController.get );
+userRouter.get('/me',
+authMiddleware( 'getUsers', 'read'),
+userController.get );
 
-userRouter.post('/login', validationHandler(config.login), userController.login);
+userRouter.post('/login',
+validationHandler(config.login),
+userController.login);
 
 
 export default userRouter;
