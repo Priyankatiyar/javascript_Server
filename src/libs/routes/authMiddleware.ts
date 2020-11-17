@@ -20,9 +20,16 @@ export default (moduleName:string, permissionType:string) =>async (req , res, ne
     
     try{
         const user = jwt.verify( token, 'qwertyuiopasdfghjklzxcvbnm123456');
-        userDetail = await  UserRepository.findOne({email: user.result.email, passsword: user.result.passsword});
+        req.userData = user.result;
 
-        req.user = userDetail;
+        if(!userDetail) {
+            next({
+                error: "Unauthorized",
+                message: 'Permission Denied',
+                status: 403
+                
+            });
+        }
 
         if (!hasPermissions(moduleName, user.result.role, permissionType)) {
             next({

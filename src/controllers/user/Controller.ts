@@ -1,9 +1,16 @@
+import { Request, Response, NextFunction } from 'express';
 import  { userModel } from '../../repositories/user/UserModel';
 import  UserRepository  from '../../repositories/user/UserRepository';
+
+import  config  from '../../config/configuration';
+
 
 import * as jwt from 'jsonwebtoken';
 
 class UserController {
+
+    userRepository: UserRepository = new UserRepository();
+
     static instance: UserController;
 
     static getInstance() {
@@ -15,102 +22,135 @@ class UserController {
     }
 
     get(req, res, next) {
-        try {
+        const user = new UserRepository();
+        const { id } = req.query;
+
+        user.getUser({ id })
+        .then(( data ) => {
+            if ( data === null ) {
+                throw new Error('');
+            }
             console.log('Inside get() method of User Controller');
-            res.send({
+            res.status(200).send({
                 message: 'Users Data fetched sucsesfully!',
-                data: [
-                    {
-                        data: req.user,
-                    }
-                ]
+                data,
+
+
             });
-        } catch (err) {
-            console.log('Inside error', err);
-        }
+        })
+        .catch (err => {
+            console.log(err);
+            res.send({
+                Error: 'User NOt Found!',
+                code: 500,
+            });
+        });
     }
 
     create(req, res, next) {
-        try {
+
+        const { id, name, email, role, password } = req.body;
+        const user = new UserRepository();
+        const creator = req.userData._id;
+        user.create({ id, name, email, role, password}, creator)
+        .then( () => {
             console.log('Inside post() method of User Controller');
-            res.send({
-                message: 'Users created sucsesfully!',
+
+            res.status(200).send({
+                message: 'User Created Successfully!',
                 data: {
-                        name: 'Priyanka',
-                        address: 'Noida'
-                    }
+                    'id': id,
+                    'name': name,
+                    'email': email,
+                    'role': role,
+                    'password': password,
+                },
+                code: 200
             });
-        } catch (err) {
-            console.log('Inside error', err);
-        }
+        })
+        .catch( (err) => {
+            next({
+                error: 'User not created!',
+                code: 404
+            });
+        });
     }
 
     update(req, res, next) {
-        try {
+        const { id, dataToUpdate } = req.body;
+        const user = new UserRepository();
+        const updator = req.userData._id;
+        user.updateUser(id, dataToUpdate, updator )
+        .then( ( result) => {
             console.log('Inside put() method of Users Controller');
             res.send({
                 message: 'Users updated sucsesfully!',
-                data: {
-                        name: 'Priyanka',
-                        address: 'Noida'
-                    }
+                code: 404
             });
-        } catch (err) {
-            console.log('Inside error', err);
-        }
+        });
     }
 
     delete(req, res, next) {
-        try {
+        const id = req.params.id;
+        const user = new UserRepository();
+        const deletor = req.userData._id;
+        user.delete(id, deletor)
+        .then( (result) => {
             console.log('Inside delete() method of User Controller');
             res.send({
                 message: 'Users deleted sucsesfully!',
-                data: {
-                        name: 'Priyanka',
-                        address: 'Noida'
-                    }
+                code: 200
             });
-        }
-
-        catch (err) {
-            console.log('Inside error', err);
-        }
+        })
+        .catch( (err) => {
+            next( {
+                error: 'User not found to deleted',
+                code: 404
+            });
+        } );
     }
 
-    login( req, res, next ) {
-        try {
-            const { email, password } = req.body;
-            userModel.findOne ( { email: req.body.email }, (err, result ) => {
-                if ( result ) {
-                    if ( password === result.password) {
-                        const token = jwt.sign( result, 'qwertyuiopasdfghjklzxcvbnm123456');
-                        res.send({
-                            data: token,
-                            message: 'Login Successful!',
-                            code: 200
-                        });
-                    }
-                    else {
-                            res.send({
-                            message: 'Incorrect Password',
-                            code: 400
-                        });
-                    }
-                }
-                else {
-                    res.send({
-                        message: 'Email is not Registered',
-                        code: 404
-                    });
-                }
-
-            });
-        }
-        catch ( err ) {
-            res.send(err);
-        }
+    me(req, res, next) {
+        const data = req.body;
+        res.json( {
+            data
+        });
     }
 
+    public async login( req, res, next ) {
+        const { email } = req.body;
+
+        console.log('Inside User Controller login');
+
+        const user = new UserRepository();
+        const userData =  await user.getUser( { email} );
+
+        if (userData === null) {
+            res.status(404).send({
+                err: 'User Not Found',
+                code: 404
+            });
+        }
+        console.log('userData:', userData);
+        const { password } = userData;
+
+        if (password !== req.body.password) {
+            res.status(401).send({
+                err: 'Invalid Password',
+                code: 401
+            });
+            return;
+        }
+
+        const token = jwt.sign(userData.toJSON(), 'qwertyuiopasdfghjklzxcvbnm123456');
+        res.send({
+            message: 'Login Successfull',
+            status: 200,
+            'token': token
+            });
+        return;
+
+    }
 }
 
 export default UserController.getInstance();
