@@ -14,14 +14,14 @@ export default () => {
                     role: 'head-trainer',
                     email: 'head.trainer@successive.tech',
                     password: 'head@123'
-                }, undefined);
+                });
 
                 userRepository.create({
                     name: 'Trainee',
                     role: 'trainee' ,
                     email: 'trainee@successive.tech',
                     password: 'trainee@123'
-                }, undefined);
+                });
 
             }
         })
