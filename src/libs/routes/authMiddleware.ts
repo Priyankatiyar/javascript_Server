@@ -23,14 +23,6 @@ export default (moduleName:string, permissionType:string) =>async (req: IRequest
     try{
         const user = jwt.verify( token, 'qwertyuiopasdfghjklzxcvbnm123456');
         req.userData = user.result;
-        // if(!userDetail) {
-        //     next({
-        //         error: "Unauthorized",
-        //         message: 'Permission Denied',
-        //         status: 403
-                
-        //     });
-        // }
 
         if (!hasPermissions(moduleName, user.result.role, permissionType)) {
             next({
