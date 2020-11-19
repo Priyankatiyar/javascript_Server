@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import UserRepositories from '../../repositories/user/UserRepository';
+import UserRepository from '../../repositories/user/UserRepository';
 
 class TraineeController {
     static instance: TraineeController;
@@ -12,7 +12,7 @@ class TraineeController {
     }
     async get(req: Request, res: Response, next: NextFunction) {
         try {
-            const userRepository = new UserRepositories();
+            const userRepository = new UserRepository();
             const extractedData = await userRepository.findAll(req.body, {}, {});
             res.status(200).send({
                 message: 'trainee fetched successfully',
@@ -26,7 +26,7 @@ class TraineeController {
     }
     create(req: Request, res: Response, next: NextFunction) {
         try {
-            const userRepository = new UserRepositories();
+            const userRepository = new UserRepository();
             userRepository.userCreate(req.body);
             res.status(200).send({
                 message: 'trainee created successfully',
@@ -40,7 +40,7 @@ class TraineeController {
     }
     update(req: Request, res: Response, next: NextFunction) {
         try {
-            const userRepository = new UserRepositories();
+            const userRepository = new UserRepository();
             userRepository.userUpdate(req.body);
             res.status(200).send({
                 message: 'trainee updated successfully',
@@ -53,7 +53,7 @@ class TraineeController {
     }
     delete(req: Request, res: Response, next: NextFunction) {
         try {
-            const userRepository = new UserRepositories();
+            const userRepository = new UserRepository();
             userRepository.delete(req.params.id);
             res.status(200).send({
                 message: 'trainee deleted successfully',
