@@ -1,11 +1,13 @@
 import hasPermissions from '../permissions';
 import UserRepository from '../../repositories/user/UserRepository';
-import { Request } from 'express';
+import { NextFunction, Request } from 'express';
+import IRequest from './IRequest';
+
 
 
 const jwt = require('jsonwebtoken');
 
-export default (moduleName:string, permissionType:string) =>async (req , res, next) => {
+export default (moduleName:string, permissionType:string) =>async (req: IRequest, res, next) => {
     
     const { headers : { authorization: token }} = req;
     let userDetail;
@@ -21,15 +23,6 @@ export default (moduleName:string, permissionType:string) =>async (req , res, ne
     try{
         const user = jwt.verify( token, 'qwertyuiopasdfghjklzxcvbnm123456');
         req.userData = user.result;
-
-        if(!userDetail) {
-            next({
-                error: "Unauthorized",
-                message: 'Permission Denied',
-                status: 403
-                
-            });
-        }
 
         if (!hasPermissions(moduleName, user.result.role, permissionType)) {
             next({
