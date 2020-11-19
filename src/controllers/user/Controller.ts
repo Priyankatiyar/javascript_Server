@@ -5,6 +5,7 @@ import { payload } from '../../libs/constants';
 
 class UserController {
     static instance: UserController;
+
     static getInstance() {
         if (UserController.instance) {
             return UserController.instance;
@@ -21,7 +22,8 @@ class UserController {
                 data: [extractedData],
                 status: 'success',
             });
-        } catch (err) {
+        }
+        catch (err) {
             console.log('error is ', err);
         }
     }
@@ -34,7 +36,8 @@ class UserController {
                 data: [req.body],
                 status: 'success',
             });
-        } catch (err) {
+        }
+        catch (err) {
             console.log('error is ', err);
         }
     }
@@ -46,7 +49,8 @@ class UserController {
                 message: 'User updated successfully',
                 data: [req.body]
             });
-        } catch (err) {
+        }
+        catch (err) {
             console.log('error is ', err);
         }
     }
@@ -63,7 +67,8 @@ class UserController {
                 ],
                 status: 'success',
             });
-        } catch (err) {
+        }
+        catch (err) {
             console.log('error is ', err);
         }
     }

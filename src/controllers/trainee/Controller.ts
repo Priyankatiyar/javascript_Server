@@ -19,7 +19,8 @@ class TraineeController {
                 data: [extractedData],
                 status: 'success',
             });
-        } catch (err) {
+        }
+        catch (err) {
             console.log('error is ', err);
         }
     }
@@ -32,7 +33,8 @@ class TraineeController {
                 data: [req.body],
                 status: 'success',
             });
-        } catch (err) {
+        }
+        catch (err) {
             console.log('error is ', err);
         }
     }
@@ -44,7 +46,8 @@ class TraineeController {
                 message: 'trainee updated successfully',
                 data: [req.body]
             });
-        } catch (err) {
+        }
+        catch (err) {
             console.log('error is ', err);
         }
     }
@@ -61,7 +64,8 @@ class TraineeController {
                 ],
                 status: 'success',
             });
-        } catch (err) {
+        }
+        catch (err) {
             console.log('error is ', err);
         }
     }
