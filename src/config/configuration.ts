@@ -3,6 +3,7 @@
 
 const envVars = dotenv.config();
 const config = envVars.parsed;
-const secret = process.env.secret_key;
+const SECRET_KEY = process.env.SECRET_KEY;
+const Password = process.env.PASSWORD;
 
 export default Object.freeze(config);

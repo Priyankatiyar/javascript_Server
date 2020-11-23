@@ -44,13 +44,13 @@ const config = {
     },
     update: {
         id: {
-            required: true,
+            required: false,
             string: true,
             in: ['body']
         },
         dataToUpdate: {
             in: ['body'],
-            required: true,
+            required: false,
             isObject: true,
             custom(dataToUpdate) {
                 console.log('dataToUpdate');

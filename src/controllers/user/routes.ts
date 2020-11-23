@@ -6,15 +6,10 @@ import  authMiddleware  from  '../../libs/routes/authMiddleWare';
 import { permissions } from '../../libs/permissions';
 
 const userRouter = Router();
-userRouter.route('/')
-    .get(userController.get)
-    .post(userController.create)
-    .put( userController.update);
-    userRouter.route('/:id')
-    .delete(validationHandler(validation.delete), userController.delete);
+
 userRouter.route('/login')
-    .post(validationHandler(validation.login), userController.login);
+    .post(userController.login);
 userRouter.route('/me')
-    .get(authMiddleware('getUsers', 'all'), userController.get);
+    .get(authMiddleware('getUsers', 'read'), userController.me);
 
 export default userRouter;
