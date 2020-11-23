@@ -10,10 +10,10 @@ class TraineeController {
         TraineeController.instance = new TraineeController();
         return TraineeController.instance;
     }
-    async get(req: Request, res: Response, next: NextFunction) {
+    public async get(req: Request, res: Response, next: NextFunction) {
         try {
             const userRepository = new UserRepository();
-            const extractedData = await userRepository.findAll(req.body, {}, {});
+            const extractedData = await userRepository.findAll({}, {}, {});
             res.status(200).send({
                 message: 'trainee fetched successfully',
                 data: [extractedData],
@@ -24,13 +24,13 @@ class TraineeController {
             console.log('error is ', err);
         }
     }
-    create(req: Request, res: Response, next: NextFunction) {
+    public async create(req: Request, res: Response, next: NextFunction) {
         try {
             const userRepository = new UserRepository();
-            userRepository.userCreate(req.body);
+            const result = await userRepository.createUser(req.body);
             res.status(200).send({
                 message: 'trainee created successfully',
-                data: [req.body],
+                data: [result],
                 status: 'success',
             });
         }
@@ -38,10 +38,10 @@ class TraineeController {
             console.log('error is ', err);
         }
     }
-    update(req: Request, res: Response, next: NextFunction) {
+    public async update(req: Request, res: Response, next: NextFunction) {
         try {
             const userRepository = new UserRepository();
-            userRepository.userUpdate(req.body);
+            await userRepository.updateUser(req.body);
             res.status(200).send({
                 message: 'trainee updated successfully',
                 data: [req.body]
@@ -51,10 +51,10 @@ class TraineeController {
             console.log('error is ', err);
         }
     }
-    delete(req: Request, res: Response, next: NextFunction) {
+    public async delete(req: Request, res: Response, next: NextFunction) {
         try {
             const userRepository = new UserRepository();
-            userRepository.delete(req.params.id);
+            await userRepository.delete(req.params.id);
             res.status(200).send({
                 message: 'trainee deleted successfully',
                 data: [

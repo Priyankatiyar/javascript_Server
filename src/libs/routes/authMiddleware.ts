@@ -2,8 +2,7 @@ import hasPermissions from '../permissions';
 import UserRepository from '../../repositories/user/UserRepository';
 import { NextFunction, Request } from 'express';
 import IRequest from './IRequest';
-
-
+import configuration from '../../config/configuration';
 
 const jwt = require('jsonwebtoken');
 
@@ -11,7 +10,7 @@ export default (moduleName:string, permissionType:string) =>async (req: IRequest
     
     const { headers : { authorization: token }} = req;
     let userDetail;
-
+    const secret = configuration.SECRET_KEY;
     if (!token) {
         next({
             message: 'Token not found',
@@ -21,12 +20,13 @@ export default (moduleName:string, permissionType:string) =>async (req: IRequest
     }   
     
     try{
-        const user = jwt.verify( token, 'qwertyuiopasdfghjklzxcvbnm123456');
-        req.userData = user.result;
-
-        if (!hasPermissions(moduleName, user.result.role, permissionType)) {
+        const user = jwt.verify( token, secret);
+        userDetail = await UserRepository.readOne({ email: user.userData.email});
+        res.locals.userData = userDetail;
+        
+        if (!hasPermissions(moduleName, userDetail.role, permissionType)) {
             next({
-                message: 'permission denied',
+                message: 'TRy permission denied',
                 error: 'Unauthorized Access',
                 status: 403
             });
@@ -36,11 +36,10 @@ export default (moduleName:string, permissionType:string) =>async (req: IRequest
     catch (err) {
         console.log(err);
         next({
-            message: 'User is unauthorized',
+            message: 'Catch User is unauthorized',
             error: 'Unauthorized Access',
             status: 403
         });
     }
-    
 
 };

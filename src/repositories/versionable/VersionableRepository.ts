@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 import { DocumentQuery, Query } from 'mongoose';
 import IUserModel from '../user/IUserModel';
+import * as bcrypt from 'bcrypt';
 
 export default class VersionableRepository<D extends mongoose.Document, M extends mongoose.Model<D>> {
     public static generateObjectId() {

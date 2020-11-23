@@ -2,6 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import UserRepository from '../../repositories/user/UserRepository';
 import * as jwt  from 'jsonwebtoken';
 import { payload } from '../../libs/constants';
+import * as bcrypt from 'bcrypt';
+import configuration from '../../config/configuration';
+
 
 class UserController {
     static instance: UserController;
@@ -13,103 +16,63 @@ class UserController {
         UserController.instance = new UserController();
         return UserController.instance;
     }
-    async get(req: Request, res: Response, next: NextFunction) {
+
+    public async login( req: Request, res: Response, next: NextFunction) {
         try {
-            const userRepository = new UserRepository();
-            const extractedData = await userRepository.findAll(req.body, {}, {});
-            res.status(200).send({
-                message: 'User fetched successfully',
-                data: [extractedData],
-                status: 'success',
-            });
-        }
-        catch (err) {
-            console.log('error is ', err);
-        }
-    }
-    create(req: Request, res: Response, next: NextFunction) {
-        try {
-            const userRepository = new UserRepository();
-            userRepository.userCreate(req.body);
-            res.status(200).send({
-                message: 'User created successfully',
-                data: [req.body],
-                status: 'success',
-            });
-        }
-        catch (err) {
-            console.log('error is ', err);
-        }
-    }
-    update(req: Request, res: Response, next: NextFunction) {
-        try {
-            const userRepository = new UserRepository();
-            userRepository.userUpdate(req.body);
-            res.status(200).send({
-                message: 'User updated successfully',
-                data: [req.body]
-            });
-        }
-        catch (err) {
-            console.log('error is ', err);
-        }
-    }
-    delete(req: Request, res: Response, next: NextFunction) {
-        try {
-            const userRepository = new UserRepository();
-            userRepository.delete(req.params.id);
-            res.status(200).send({
-                message: 'trainee deleted successfully',
-                data: [
-                    {
-                        Id: req.params.id
+            const secret = configuration.SECRET_KEY;
+            const {email, password } = req.body;
+            payload.password = password;
+            const userData = await UserRepository.readOne({email});
+            if (userData === null ) {
+                return next({
+                    message: 'Email Not Registered! ',
+                    error: 'Unauthorized Access',
+                    status: 403
+                });
+            }
+            else {
+                if (email === userData.email) {
+                   const result = bcrypt.compareSync(payload.password, userData.password );
+                        if (result) {
+                        console.log('Password matched![Authorized User]');
+                        const token = jwt.sign({userData}, secret);
+                        res.status(200).send({
+                            message: 'token created successfully',
+                            data: {
+                                generated_token: token
+                            },
+                            status: 'success'
+                        });
                     }
-                ],
-                status: 'success',
-            });
+                    else {
+                        console.log('Password not matched!');
+                        res.status(400).send({
+                            message: 'Invalid Password!',
+                            error: 'Unauthorized Access',
+                            status: 403
+                        });
+                        }
+                }
+            }
         }
         catch (err) {
-            console.log('error is ', err);
-        }
-    }
-
-    login( req: Request, res: Response, next: NextFunction) {
-        try {
-            payload.email = req.body.email;
-            payload.password = req.body.password;
-            UserRepository.readOne({ email: req.body.email, passsword: req.body.passsword })
-            .then((data) => {
-                if (data === null) {
-                    next({
-                        message: 'user not found',
-                        error: 'Unauthorized Access',
-                        status: 403
-                    });
-                }
-                else {
-                    const token = jwt.sign(payload, 'qwertyuiopasdfghjklzxcvbnm123456');
-                    res.status(200).send({
-                        message: 'token created successfully',
-                        data: {
-                            generated_token: token
-                        },
-                        status: 'success'
-                    });
-                }
-            })
-            .catch((err) => {
-                console.log('data not found', err);
-            });
-
-        }
-        catch (err) {
+            res.send(err);
             return next({
                 error: 'bad request',
                 message: err,
                 status: 400
             });
         }
+
     }
+    me( req: Request, res: Response, next: NextFunction) {
+        const data = res.locals.userData;
+        console.log('Data::::', data);
+        res.json( {
+        data
+     });
+    }
+
 }
 
 export default UserController.getInstance();
