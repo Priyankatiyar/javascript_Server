@@ -15,7 +15,7 @@ class TraineeController {
             const userRepository = new UserRepository();
             const extractedData = await userRepository.findAll({}, {}, {});
             res.status(200).send({
-                message: 'trainee fetched successfully',
+                message: 'Trainee fetched successfully',
                 data: [extractedData],
                 status: 'success',
             });
@@ -29,7 +29,7 @@ class TraineeController {
             const userRepository = new UserRepository();
             const result = await userRepository.createUser(req.body);
             res.status(200).send({
-                message: 'trainee created successfully',
+                message: 'Trainee created successfully',
                 data: [result],
                 status: 'success',
             });
@@ -41,10 +41,10 @@ class TraineeController {
     public async update(req: Request, res: Response, next: NextFunction) {
         try {
             const userRepository = new UserRepository();
-            await userRepository.updateUser(req.body);
+            const result = await userRepository.updateUser(req.body);
             res.status(200).send({
-                message: 'trainee updated successfully',
-                data: [req.body]
+                message: 'Trainee updated successfully',
+                data: [result]
             });
         }
         catch (err) {

@@ -17,20 +17,16 @@ export default class UserRepository extends VersionableRepository<IUserModel, mo
     }
 
     public async createUser(data: any): Promise<IUserModel> {
-        const rawPassword = data.password;
-        const saltRounds = 10;
-        const salt = bcrypt.genSaltSync(saltRounds);
-        const hashedPassword = bcrypt.hashSync(rawPassword, salt);
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(data.password, salt);
         data.password = hashedPassword;
         return await super.userCreate(data);
     }
 
     public async updateUser(data: any): Promise<IUserModel> {
         if ('password' in data) {
-            const rawPassword = data.password;
-            const saltRounds = 10;
-            const salt = bcrypt.genSaltSync(saltRounds);
-            const hashedPassword = bcrypt.hashSync(rawPassword, salt);
+            const salt = bcrypt.genSaltSync(10);
+            const hashedPassword = bcrypt.hashSync(data.password, salt);
             data.password = hashedPassword;
         }
         return await super.userUpdate(data);
