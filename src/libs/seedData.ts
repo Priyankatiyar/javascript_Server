@@ -5,7 +5,7 @@ import configuration  from '../config/configuration';
 const userRepository: UserRepository = new UserRepository();
 
 export default () => {
-    userRepository.count()
+    userRepository.countData()
         .then(res => {
             if ( res === 0) {
                 console.log('Seeding Data in progress');
