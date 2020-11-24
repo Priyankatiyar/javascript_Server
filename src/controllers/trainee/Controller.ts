@@ -3,6 +3,7 @@ import UserRepository from '../../repositories/user/UserRepository';
 
 class TraineeController {
     static instance: TraineeController;
+    userRepository: any;
     static getInstance() {
         if (TraineeController.instance) {
             return TraineeController.instance;
@@ -10,20 +11,33 @@ class TraineeController {
         TraineeController.instance = new TraineeController();
         return TraineeController.instance;
     }
-    public async get(req: Request, res: Response, next: NextFunction) {
+
+    public async getAll(req: Request, res: Response, next: NextFunction) {
         try {
             const userRepository = new UserRepository();
-            const extractedData = await userRepository.findAll({}, {}, {});
+
+            const {skip, limit, sort } = req.query;
+            const extractedData = await userRepository.findAll({}, {},
+                {
+                    limit : Number(limit),
+                    skip : Number(skip),
+                    sort: {[String(sort)]: -1},
+                    collation: ({locale: 'en'})
+                });
+
             res.status(200).send({
-                message: 'Trainee fetched successfully',
+                message: 'trainee fetched successfully',
+                totalCount: await userRepository.count(req.body),
+                count: extractedData.length,
                 data: [extractedData],
                 status: 'success',
             });
-        }
-        catch (err) {
-            console.log('error is ', err);
+        } catch (err) {
+            console.log('error: ', err);
         }
     }
+
+
     public async create(req: Request, res: Response, next: NextFunction) {
         try {
             const userRepository = new UserRepository();
