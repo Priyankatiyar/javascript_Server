@@ -14,6 +14,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.12",
     "query-string": "^6.13.7",
+    "swagger-jsdoc": "^5.0.1",
+    "swagger-ui": "^3.37.0",
+    "swagger-ui-express": "^4.1.5",
     "tsc": "^1.20150623.0"
   },
   "devDependencies": {

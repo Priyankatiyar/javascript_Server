@@ -1,4 +1,3 @@
-import { of } from 'core-js/fn/array';
 import { ValidateEmail } from './helpers';
 export function ValidateUser(users) {
     const valid: string[] = [];
