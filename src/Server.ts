@@ -42,6 +42,7 @@ class Server {
         const swaggerSpec = swaggerDocument(options);
         return swaggerSpec;
     }
+
     setupRoutes() {
         this.app.use('/swagger', swaggerUI.serve, swaggerUI.setup(this.initSwagger()));
         this.app.use('/health-check', (req, res) => {
@@ -53,6 +54,7 @@ class Server {
         this.app.use(notFoundRoute);
         this.app.use(errorHandler);
     }
+
     initBodyParser() {
         this.app.use(bodyparser.json({ type: 'application/*+json' }));
         this.app.use(bodyparser.json());
@@ -73,5 +75,7 @@ class Server {
     })
     .catch(err => console.log(err));
     }
+
 }
+
 export default Server;

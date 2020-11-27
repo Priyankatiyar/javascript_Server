@@ -32,7 +32,7 @@ class TraineeController {
                 });
 
                 res.status(200).send({
-                    message: 'trainee fetched successfully',
+                    message: 'Trainee fetched successfully!',
                     totalCount: await userRepository.count(req.body),
                     count: extractedData.length,
                     data: [extractedData],
@@ -49,7 +49,7 @@ class TraineeController {
                 });
 
             res.status(200).send({
-                message: 'trainee fetched successfully',
+                message: 'Trainee fetched successfully!',
                 totalCount: await userRepository.count(req.body),
                 count: extractedData.length,
                 data: [extractedData],
@@ -67,13 +67,13 @@ class TraineeController {
             const userRepository = new UserRepository();
             const result = await userRepository.createUser(req.body);
             res.status(200).send({
-                message: 'Trainee created successfully',
+                message: 'Trainee created successfully!',
                 data: [result],
                 status: 'success',
             });
         }
         catch (err) {
-            console.log('error is ', err);
+            console.log('Error is ', err);
         }
     }
     public async update(req: Request, res: Response, next: NextFunction) {
@@ -81,7 +81,7 @@ class TraineeController {
             const userRepository = new UserRepository();
             const result = await userRepository.updateUser(req.body);
             res.status(200).send({
-                message: 'Trainee updated successfully',
+                message: 'Trainee updated successfully!',
                 data: [result]
             });
         }
@@ -94,8 +94,8 @@ class TraineeController {
             const userRepository = new UserRepository();
             await userRepository.delete(req.params.id);
             res.status(200).send({
-                message: 'trainee deleted successfully',
-                data: {},
+                message: 'Trainee deleted successfully!',
+                data: { },
                 status: 'success',
             });
         }

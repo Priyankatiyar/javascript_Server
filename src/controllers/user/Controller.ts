@@ -37,10 +37,8 @@ class UserController {
                         console.log('Password matched![Authorized User]');
                         const token = jwt.sign({userData}, secret);
                         res.status(200).send({
-                            message: 'Login successfully!',
-                            data: {
-                                generated_token: token
-                            },
+                            message: 'Authorization Token',
+                            data: token,
                             status: 'success'
                         });
                     }

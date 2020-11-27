@@ -55,7 +55,7 @@ const userRouter = Router();
  *   post:
  *     tags:
  *       - User
- *     description: Login Credentials
+ *     description: Login Credentials!
  *     security:
  *       - Bearer: []
  *     produces:

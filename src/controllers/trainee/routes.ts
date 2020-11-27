@@ -35,7 +35,7 @@ const traineeRouter = Router();
  *              example: priyankar@successive.tech
  *          name:
  *              type: string
- *              example: priyanka
+ *              example: Priyanka
  *          role:
  *              type: string
  *              example: trainee
