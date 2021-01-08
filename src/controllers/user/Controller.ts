@@ -39,7 +39,7 @@ class UserController {
                         res.status(200).send({
                             message: 'Authorization Token',
                             data: token,
-                            status: 'success'
+                            status: 200
                         });
                     }
                     else {
