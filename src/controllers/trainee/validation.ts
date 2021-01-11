@@ -1,17 +1,17 @@
 const config = {
     create: {
-        id: {
-            required: true,
-            string: true,
-            in: ['body'],
-            custom(value) {
-                console.log('Value', value);
-                throw {
-                    error: 'Error Occured',
-                    message: 'Message'
-                };
-            }
-        },
+        // id: {
+        //     required: true,
+        //     string: true,
+        //     in: ['body'],
+        //     custom(value) {
+        //         console.log('Value', value);
+        //         throw {
+        //             error: 'Error Occured',
+        //             message: 'Message'
+        //         };
+        //     }
+        // },
         name: {
             required: true,
             regex: '',
@@ -19,7 +19,7 @@ const config = {
             errorMessage: 'Name is required'
         },
         role: {
-            required: true,
+            required: false,
             sting: true,
             in: ['body'],
             errorMessage: 'Role is required',
