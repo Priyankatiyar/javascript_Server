@@ -14,6 +14,7 @@ class TraineeController {
 
     public async getAll(req: Request, res: Response, next: NextFunction) {
         try {
+            console.log('Try get');
             const userRepository = new UserRepository();
             function escapeRegExp(text) {
                 return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
@@ -30,12 +31,11 @@ class TraineeController {
                     sort: {[String(sort)]: req.query.sortedBy},
                     collation: ({locale: 'en'})
                 });
-
                 res.status(200).send({
                     message: 'Trainee fetched successfully!',
                     totalCount: await userRepository.count(req.body),
                     count: extractedData.length,
-                    data: [extractedData],
+                    data: extractedData,
                     status: 'success',
                 });
             }
@@ -47,12 +47,13 @@ class TraineeController {
                     sort: {[String(sort)]: req.query.sortedBy},
                     collation: ({locale: 'en'})
                 });
+                console.log('responseDta:::::', extractedData);
 
             res.status(200).send({
                 message: 'Trainee fetched successfully!',
                 totalCount: await userRepository.count(req.body),
                 count: extractedData.length,
-                data: [extractedData],
+                data: extractedData,
                 status: 'success',
             });
             }
@@ -66,6 +67,7 @@ class TraineeController {
         try {
             const userRepository = new UserRepository();
             const result = await userRepository.createUser(req.body);
+            console.log('created data::', result);
             res.status(200).send({
                 message: 'Trainee created successfully!',
                 data: [result],
@@ -79,10 +81,13 @@ class TraineeController {
     public async update(req: Request, res: Response, next: NextFunction) {
         try {
             const userRepository = new UserRepository();
+            console.log('update:', req.body);
             const result = await userRepository.updateUser(req.body);
+            console.log('result:', result);
             res.status(200).send({
                 message: 'Trainee updated successfully!',
-                data: [result]
+                data: [result],
+                status: 'success',
             });
         }
         catch (err) {
@@ -92,12 +97,23 @@ class TraineeController {
     public async delete(req: Request, res: Response, next: NextFunction) {
         try {
             const userRepository = new UserRepository();
-            await userRepository.delete(req.params.id);
-            res.status(200).send({
+            console.log('delete paramID', req.params.id);
+            const traineeId = req.params.id;
+            const target = await userRepository.delete(req.params.id);
+            if( target !== null)
+            {
+                res.status(200).send({
                 message: 'Trainee deleted successfully!',
-                data: { },
+                data: traineeId,
                 status: 'success',
-            });
+                });
+            } 
+            else{
+                res.status(404).send({
+                    message: 'Not Found!',
+                    status: 'Failure',
+                    });
+            }   
         }
         catch (err) {
             console.log('error is ', err);

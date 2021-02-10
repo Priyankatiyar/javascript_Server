@@ -48,18 +48,22 @@ export default class VersionableRepository<D extends mongoose.Document, M extend
 
     public async delete(id: string): Promise<D> {
         const previous = await this.findOne({ originalId: id, deletedAt: undefined });
+        console.log('oginal', id);
+        console.log('delete previous', previous);
         if (previous) {
             return await this.invalidate(id);
+        }
+        else {
+            return null;
         }
     }
 
     public async userUpdate(data: any): Promise<D> {
-        const previous = await this.findOne({ originalId: data.originalId, deletedAt: undefined });
-
+        const previous = await this.findOne({ originalId: data.id, deletedAt: undefined });
         console.log('previous: ', previous);
 
         if (previous) {
-            await this.invalidate(data.originalId);
+            await this.invalidate(data.id);
         }
         else {
             return undefined;
