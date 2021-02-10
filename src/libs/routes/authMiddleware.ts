@@ -8,7 +8,10 @@ const jwt = require('jsonwebtoken');
 
 export default (moduleName:string, permissionType:string) =>async (req: IRequest, res, next) => {
     
+    // const token = JSON.parse(req.headers['authorization']);
     const { headers : { authorization: token }} = req;
+
+    console.log(';;;trh', token);
     let userDetail;
     const secret = configuration.SECRET_KEY;
     if (!token) {
@@ -21,6 +24,7 @@ export default (moduleName:string, permissionType:string) =>async (req: IRequest
     
     try{
         const user = jwt.verify( token, secret);
+        console.log('sfdfgdgd : ', user.userData.email);
         userDetail = await UserRepository.readOne({ email: user.userData.email});
         res.locals.userData = userDetail;
         

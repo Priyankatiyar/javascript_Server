@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import UserRepository from '../../repositories/user/UserRepository';
+import  { userModel } from '../../repositories/user/UserModel';
 import * as jwt  from 'jsonwebtoken';
 import { payload } from '../../libs/constants';
 import * as bcrypt from 'bcrypt';
@@ -36,18 +37,18 @@ class UserController {
                         if (result) {
                         console.log('Password matched![Authorized User]');
                         const token = jwt.sign({userData}, secret);
-                        res.status(200).send({
+                        res.send({
                             message: 'Authorization Token',
                             data: token,
-                            status: 'success'
+                            status: 200,
                         });
                     }
                     else {
                         console.log('Password not matched!');
-                        res.status(400).send({
+                        res.send({
                             message: 'Invalid Password!',
                             error: 'Unauthorized Access',
-                            status: 403
+                            status: 400,
                         });
                         }
                 }
