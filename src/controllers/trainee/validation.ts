@@ -45,20 +45,7 @@ const config = {
         }
     }  ,
     get: {
-        // skip: {
-        //     required: false,
-        //     default: 0,
-        //     number: true,
-        //     in: ['query'],
-        //     errorMessage: 'Skip is invalid',
-        // },
-        // limit: {
-        //     required: false,
-        //     default: 10,
-        //     number: true,
-        //     in: ['query'],
-        //     errorMessage: 'Limit is invalid',
-        // }
+        
     },
     update: {
         id: {
@@ -66,14 +53,6 @@ const config = {
             string: true,
             in: ['body']
         },
-        // dataToUpdate: {
-        //     in: ['body'],
-        //     required: false,
-        //     isObject: true,
-        //     custom(dataToUpdate) {
-        //         console.log('dataToUpdate');
-        //     },
-        // }
     }
 };
 export default config;
